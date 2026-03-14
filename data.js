@@ -50,28 +50,61 @@ async function initDatabase() {
     }
 }
 
+// --- SWR Client-Side Cache ---
+// Stale data is returned instantly from localStorage; fresh data is fetched
+// in the background and the UI is updated when it arrives.
+const SWR_TTL = 5 * 60 * 1000; // 5 minutes
+
+function swrGet(key) {
+    try {
+        const raw = localStorage.getItem(`swr:${key}`);
+        if (!raw) return null;
+        const entry = JSON.parse(raw);
+        if (Date.now() > entry.expiresAt) { localStorage.removeItem(`swr:${key}`); return null; }
+        return entry.data;
+    } catch { return null; }
+}
+
+function swrSet(key, data) {
+    try {
+        localStorage.setItem(`swr:${key}`, JSON.stringify({ data, expiresAt: Date.now() + SWR_TTL }));
+    } catch { /* storage full - silently skip */ }
+}
+
+function swrInvalidate(prefix) {
+    for (const k of Object.keys(localStorage)) {
+        if (k.startsWith(`swr:${prefix}`)) localStorage.removeItem(k);
+    }
+}
+
 // --- CRUD OPERATIONS: DESTINATIONS ---
 
 async function getDestinations() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/destinations`);
-        return await response.json();
-    } catch (err) {
-        console.error("Error fetching destinations:", err);
-        return [];
-    }
+    const key = 'destinations:all';
+    const stale = swrGet(key);
+    
+    // Background refresh
+    const fresh = fetch(`${API_BASE_URL}/destinations`)
+        .then(r => r.json())
+        .then(data => { swrSet(key, data); return data; })
+        .catch(() => null);
+
+    // Return stale instantly, or wait for fresh if nothing is cached
+    return stale ?? await fresh;
 }
 
 async function getDestinationById(id) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/destinations/${id}`);
-        if (!response.ok) return null;
-        return await response.json();
-    } catch (err) {
-        console.error(`Error fetching destination ${id}:`, err);
-        return null;
-    }
+    const key = `destinations:${id}`;
+    const stale = swrGet(key);
+
+    const fresh = fetch(`${API_BASE_URL}/destinations/${id}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data) swrSet(key, data); return data; })
+        .catch(() => null);
+
+    return stale ?? await fresh;
 }
+
 
 async function saveDestination(dest) {
     try {
@@ -85,6 +118,7 @@ async function saveDestination(dest) {
             body: JSON.stringify(dest)
         });
         return await response.json();
+        swrInvalidate('destinations:');
     } catch (err) {
         console.error("Error saving destination:", err);
     }
@@ -100,6 +134,7 @@ async function deleteDestination(id) {
             }
         });
         return await response.json();
+        swrInvalidate('destinations:');
     } catch (err) {
         console.error(`Error deleting destination ${id}:`, err);
     }
@@ -108,34 +143,33 @@ async function deleteDestination(id) {
 // --- CRUD OPERATIONS: PROPERTIES ---
 
 async function getProperties() {
-    try {
-        const response = await fetch(`${API_BASE_URL}/properties`);
-        return await response.json();
-    } catch (err) {
-        console.error("Error fetching properties:", err);
-        return [];
-    }
+    const key = 'properties:all';
+    const stale = swrGet(key);
+    const fresh = fetch(`${API_BASE_URL}/properties`)
+        .then(r => r.json())
+        .then(data => { swrSet(key, data); return data; })
+        .catch(() => null);
+    return stale ?? await fresh;
 }
 
 async function getPropertiesByDestination(destinationId) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/properties/destination/${destinationId}`);
-        return await response.json();
-    } catch (err) {
-        console.error(`Error fetching properties for ${destinationId}:`, err);
-        return [];
-    }
+    const key = `properties:dest:${destinationId}`;
+    const stale = swrGet(key);
+    const fresh = fetch(`${API_BASE_URL}/properties/destination/${destinationId}`)
+        .then(r => r.json())
+        .then(data => { swrSet(key, data); return data; })
+        .catch(() => []);
+    return stale ?? await fresh;
 }
 
 async function getPropertyById(id) {
-    try {
-        const response = await fetch(`${API_BASE_URL}/properties/${id}`);
-        if (!response.ok) return null;
-        return await response.json();
-    } catch (err) {
-        console.error(`Error fetching property ${id}:`, err);
-        return null;
-    }
+    const key = `properties:${id}`;
+    const stale = swrGet(key);
+    const fresh = fetch(`${API_BASE_URL}/properties/${id}`)
+        .then(r => r.ok ? r.json() : null)
+        .then(data => { if (data) swrSet(key, data); return data; })
+        .catch(() => null);
+    return stale ?? await fresh;
 }
 
 async function saveProperty(prop) {
@@ -149,7 +183,9 @@ async function saveProperty(prop) {
             },
             body: JSON.stringify(prop)
         });
-        return await response.json();
+        const result = await response.json();
+        swrInvalidate('properties:'); // Bust client-side cache
+        return result;
     } catch (err) {
         console.error("Error saving property:", err);
     }
@@ -164,7 +200,9 @@ async function deleteProperty(id) {
                 'Authorization': `Bearer ${token}`
             }
         });
-        return await response.json();
+        const result = await response.json();
+        swrInvalidate('properties:'); // Bust client-side cache
+        return result;
     } catch (err) {
         console.error(`Error deleting property ${id}:`, err);
     }
