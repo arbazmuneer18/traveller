@@ -1,0 +1,44 @@
+[
+    {
+        "author": "Sarah Jenkins",
+        "rating": 5,
+        "text": "The private jet charter to the Maldives was absolutely flawless. From the moment we boarded to the seamless transfer to our overwater bungalow, Aero handled everything with unparalleled attention to detail. Worth every penny.",
+        "date": "2 weeks ago",
+        "avatar": "https://ui-avatars.com/api/?name=Sarah+Jenkins&background=random"
+    },
+    {
+        "author": "Michael Chen",
+        "rating": 5,
+        "text": "Unmatched service. The concierge team secured us last-minute reservations at a 3-Michelin star restaurant in Tokyo that had a 6-month waitlist. Truly a 'curated for the elite' experience. Will definitely book again.",
+        "date": "1 month ago",
+        "avatar": "https://ui-avatars.com/api/?name=Michael+Chen&background=random"
+    },
+    {
+        "author": "David R",
+        "rating": 3,
+        "text": "Good trip overall but the flight.",
+        "date": "2 months ago",
+        "avatar": "https://ui-avatars.com/api/?name=David+R&background=random"
+    },
+    {
+        "author": "Elena Rostova",
+        "rating": 4,
+        "text": "A magnificent stay in the Swiss Alps. The cabin was exactly as pictured, perhaps even more beautiful. The only slight hiccup was a delay in our ground transportation, but the Aero team resolved it quickly and professionally.",
+        "date": "3 months ago",
+        "avatar": "https://ui-avatars.com/api/?name=Elena+Rostova&background=random"
+    },
+    {
+        "author": "James Harrington",
+        "rating": 5,
+        "text": "I've used many luxury travel agencies over the years, but Aero operates on another level entirely. Their access is genuine, and their discretion is absolute. Highly recommended for those who value their time.",
+        "date": "6 months ago",
+        "avatar": "https://ui-avatars.com/api/?name=James+Harrington&background=random"
+    },
+    {
+        "author": "Anonymous Voyager",
+        "rating": 5,
+        "text": "Simply the best.",
+        "date": "1 year ago",
+        "avatar": "https://ui-avatars.com/api/?name=Anonymous+Voyager&background=random"
+    }
+]

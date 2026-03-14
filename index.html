@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ - Premium Travel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Hide Google Translate toolbar to keep the premium design intact -->
+    <style>
+        .goog-te-banner-frame,
+        .goog-te-balloon-frame,
+        #goog-gt-tt,
+        .goog-te-menu-frame {
+            display: none !important;
+        }
+        body {
+            top: 0 !important;
+            position: static !important;
+        }
+        .skiptranslate {
+            display: none !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hidden Google Translate widget container -->
+    <div id="google_translate_element" style="display:none;"></div>
+
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                    class="logo-icon">
+                    <path d="M12 2L2 22h20L12 2zm0 5.86L17.14 18H6.86L12 7.86z" />
+                </svg>
+                <span>XYZ.</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#experiences">Experiences</a></li>
+                <li class="lang-divider"></li>
+                <li class="nav-dropdown">
+                    <button id="lang-trigger" class="lang-trigger" aria-label="Select Language">
+                        <svg class="globe-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                        </svg>
+                        <span id="current-lang">EN</span>
+                        <svg class="chevron-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div id="lang-dropdown" class="dropdown-menu glass hidden">
+                        <button class="dropdown-item active" data-lang="en" onclick="googleTranslatePage('en')">
+                            <span>English</span>
+                            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                        <button class="dropdown-item" data-lang="ru" onclick="googleTranslatePage('ru')">
+                            <span>Русский</span>
+                            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                        <button class="dropdown-item" data-lang="ar" onclick="googleTranslatePage('ar')">
+                            <span>العربية</span>
+                            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <div class="hero-bg">
+            <img src="images/hero.png" alt="Majestic Mountains" class="parallax-img">
+        </div>
+        <div class="hero-content fade-up">
+            <h1>Discover the<br>extraordinary.</h1>
+            <p>Curated journeys for the modern explorer. Experience the world in unmatched clarity.</p>
+            <a href="#destinations" class="btn btn-primary">Begin your journey</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="features" class="features section-padding">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <h2>Seamless travel. Beautifully designed.</h2>
+                    <p>Every detail of your journey is meticulously crafted for perfection.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card fade-up">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                            </svg>
+                        </div>
+                        <h3>Uncompromised Safety</h3>
+                        <p>Travel with peace of mind. Our standards are as rigorous as they are reassuring.</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 0.1s">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                            </svg>
+                        </div>
+                        <h3>24/7 Concierge</h3>
+                        <p>Whatever you need, whenever you need it. Our global team is always connected.</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 0.2s">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <polygon
+                                    points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                            </svg>
+                        </div>
+                        <h3>Exclusive Access</h3>
+                        <p>Unlock hidden gems and private experiences reserved only for XYZ members.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="destinations" class="destinations section-padding bg-light">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <h2>Where to next?</h2>
+                    <p>Breathtaking locations curated for the perfect escape.</p>
+                </div>
+                <div class="destinations-grid" id="destinations-grid-container">
+                    <!-- Destinations rendered by script.js -->
+                </div>
+            </div>
+        </section>
+
+        <section id="experiences" class="experiences section-padding">
+            <div class="container">
+                <div class="split-layout">
+                    <div class="split-content fade-up">
+                        <h2>Curated for the modern explorer.</h2>
+                        <p>Explore the world. Collect memories.</p>
+                    </div>
+                    <div class="split-image fade-up" style="transition-delay: 0.2s">
+                        <img src="images/jet.png" alt="Luxury Private Jet" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="reviews-section fade-up">
+                    <div class="section-header">
+                        <h2>What our explorers say.</h2>
+                    </div>
+                    <div class="reviews-container" id="reviews-container">
+                        <!-- Reviews injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="what-we-offer" class="features section-padding bg-light">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <h2>What We Offer</h2>
+                    <p>Experience the Pinnacle of Global Travel.</p>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card fade-up">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path
+                                    d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.6L3 8l6 5.5-3.5 3.5L3 16l-1 2 4.5 1 1 4.5 2-1-1-2.5 3.5-3.55 5.5 6c.4-.2.7-.6.6-1.1L17.8 19.2Z" />
+                            </svg>
+                        </div>
+                        <h3>Flights</h3>
+                        <p>Ascend in absolute comfort. We secure the finest first-class cabins and exclusive global
+                            flight routes.</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 0.1s">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 21h18" />
+                                <path d="M5 21V7l8-4v18" />
+                                <path d="M19 21V11l-6-4" />
+                                <path d="M9 9v.01" />
+                                <path d="M9 13v.01" />
+                                <path d="M9 17v.01" />
+                                <path d="M15 13v.01" />
+                                <path d="M15 17v.01" />
+                            </svg>
+                        </div>
+                        <h3>Hotels</h3>
+                        <p>Rest in curated perfection. Hand-selected luxury suites and boutique estates in the world's
+                            most sought-after locations.</p>
+                    </div>
+                    <div class="feature-card fade-up" style="transition-delay: 0.2s">
+                        <div class="feature-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2" />
+                                <path d="M7 2v20" />
+                                <path d="M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" />
+                            </svg>
+                        </div>
+                        <h3>Restaurants</h3>
+                        <p>Taste the extraordinary. Priority reservations at exclusive Michelin-starred dining rooms and
+                            hidden culinary gems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="cta-section section-padding">
+            <div class="container text-center fade-up">
+                <h2>Your adventure begins here.</h2>
+                <p>Speak with an XYZ advisor today.</p>
+
+                <div class="contact-wrapper mt-4">
+                    <button id="contact-btn" class="btn btn-primary contact-toggle-btn">
+                        <span>Contact Us</span>
+                        <svg class="chevron-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+
+                    <div id="contact-details" class="contact-card hidden">
+                        <div class="contact-grid">
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Phone</h4>
+                                    <a href="#" id="config-phone"></a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path
+                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                                        </path>
+                                        <polyline points="22,6 12,13 2,6"></polyline>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Email</h4>
+                                    <a href="#" id="config-email"></a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                                        <circle cx="12" cy="10" r="3"></circle>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Location</h4>
+                                    <a href="#" id="config-location" target="_blank"></a>
+                                </div>
+                            </div>
+
+                            <div class="contact-item">
+                                <div class="contact-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                    </svg>
+                                </div>
+                                <div class="contact-text">
+                                    <h4>Instagram</h4>
+                                    <a href="#" id="config-instagram" target="_blank"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>XYZ.</h2>
+                    <p>Designed for the explorers.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-col">
+                        <h4>Explore</h4>
+                        <ul>
+                            <li><a href="#destinations">Destinations</a></li>
+                            <li><a href="#experiences">Experiences</a></li>
+                        </ul>
+                    </div>
+                    <div class="link-col">
+                        <h4>Company</h4>
+                        <ul>
+                            <li><a href="#what-we-offer">What We Offer</a></li>
+                            <li><a href="#" id="admin-link">Admin Access</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© 2026 XYZ Travel Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="login-modal" class="modal-overlay hidden">
+        <div class="login-card">
+            <button id="close-login" class="close-btn">&times;</button>
+            <h2>Admin Login</h2>
+            <p>Access the XYZ Management Board</p>
+            <form id="login-form">
+                <div class="input-group">
+                    <input type="text" id="admin-username" placeholder="Username" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="admin-password" placeholder="Password" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Sign In</button>
+                <div id="login-error" class="error-msg hidden">Invalid credentials. Please try again.</div>
+            </form>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="i18n.js"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

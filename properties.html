@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties - XYZ Travel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Hide Google Translate toolbar to keep the premium design intact -->
+    <style>
+        .goog-te-banner-frame,
+        .goog-te-balloon-frame,
+        #goog-gt-tt,
+        .goog-te-menu-frame {
+            display: none !important;
+        }
+
+        body {
+            top: 0 !important;
+            position: static !important;
+        }
+
+        .skiptranslate {
+            display: none !important;
+        }
+    </style>
+    <style>
+        /* Specific styles for properties page */
+        .properties-header {
+            padding-top: 150px;
+            padding-bottom: 50px;
+            text-align: center;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 32px;
+            padding: 40px 0;
+        }
+
+        .property-card {
+            background: #fff;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+        }
+
+        .property-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .property-info {
+            padding: 24px;
+        }
+
+        .property-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .property-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 16px;
+        }
+
+        .property-price {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .property-rating {
+            color: #f59e0b;
+            font-weight: 500;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-primary);
+            font-weight: 500;
+            margin-bottom: 24px;
+            transition: opacity 0.2s ease;
+        }
+
+        .back-link:hover {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Hidden Google Translate widget container -->
+    <div id="google_translate_element" style="display:none;"></div>
+
+    <nav class="navbar glass">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"
+                    class="logo-icon">
+                    <path d="M12 2L2 22h20L12 2zm0 5.86L17.14 18H6.86L12 7.86z" />
+                </svg>
+                <span>XYZ.</span>
+            </a>
+            <ul class="nav-links">
+                <li class="lang-divider"></li>
+                <li class="nav-dropdown">
+                    <button id="lang-trigger" class="lang-trigger" aria-label="Select Language">
+                        <svg class="globe-icon" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <line x1="2" y1="12" x2="22" y2="12"></line>
+                            <path
+                                d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                            </path>
+                        </svg>
+                        <span id="current-lang">EN</span>
+                        <svg class="chevron-icon" width="10" height="10" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div id="lang-dropdown" class="dropdown-menu glass hidden">
+                        <button class="dropdown-item active" data-lang="en" onclick="googleTranslatePage('en')">
+                            <span>English</span>
+                            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                        <button class="dropdown-item" data-lang="ru" onclick="googleTranslatePage('ru')">
+                            <span>Русский</span>
+                            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                        <button class="dropdown-item" data-lang="ar" onclick="googleTranslatePage('ar')">
+                            <span>العربية</span>
+                            <svg class="check-icon" width="14" height="14" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                <polyline points="20 6 9 17 4 12"></polyline>
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="properties-header fade-up visible">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="12" x2="5" y2="12"></line>
+                    <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+                Back to Destinations
+            </a>
+            <h1 id="page-title"></h1>
+            <p id="page-subtitle"></p>
+
+            <div style="margin-top: 24px; display: inline-block;">
+                <label for="type-filter" style="font-weight: 500; margin-right: 8px;">Filter by Type:</label>
+                <select id="type-filter"
+                    style="padding: 8px 16px; border-radius: 6px; border: 1px solid #ccc; font-family: inherit;">
+                    <option value="All">All Types</option>
+                    <option value="Villa">Villa</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="Resort">Resort</option>
+                    <option value="Lodge">Lodge</option>
+                    <option value="Apartment">Apartment</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="properties-grid" id="properties-grid">
+            <!-- Properties will be dynamically injected here -->
+        </div>
+    </main>
+
+    <footer class="footer mt-4">
+        <div class="container text-center">
+            <p>&copy; 2026 XYZ Travel Inc. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="data.js"></script>
+    <script src="i18n.js"></script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script src="properties.js"></script>
+</body>
+
+</html>
