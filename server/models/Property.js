@@ -24,4 +24,6 @@ const PropertySchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
+PropertySchema.index({ destinationId: 1 });
+
 module.exports = mongoose.model('Property', PropertySchema);

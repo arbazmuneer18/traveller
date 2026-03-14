@@ -92,8 +92,14 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         async function loadDestinations() {
-            await initDatabase();
-            _cachedDestinations = await getDestinations();
+            // Fire both requests simultaneously
+            let destinations = await getDestinations();
+            if (destinations.length === 0) {
+                // Only seed if DB is empty
+                await initDatabase();
+                destinations = await getDestinations();
+            }
+            _cachedDestinations = destinations;
             window.renderDestinationCards();
         }
         loadDestinations();

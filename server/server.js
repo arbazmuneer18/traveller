@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const SERVER_URL = process.env.SERVER_URL || `http://localhost:${PORT}`;
 
 // Middleware
 app.use(cors());
@@ -27,4 +28,17 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
+    
+    // Keep-alive: ping self every 14 minutes to prevent Render free tier from sleeping (15 min idle timeout)
+    setInterval(() => {
+        const http = require('http');
+        const https = require('https');
+        const url = new URL(SERVER_URL);
+        const client = url.protocol === 'https:' ? https : http;
+        client.get(`${SERVER_URL}/`, (res) => {
+            console.log(`[Keep-Alive] Ping sent. Status: ${res.statusCode}`);
+        }).on('error', (err) => {
+            console.warn(`[Keep-Alive] Ping failed: ${err.message}`);
+        });
+    }, 14 * 60 * 1000);
 });
