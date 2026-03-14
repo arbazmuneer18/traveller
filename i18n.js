@@ -43,10 +43,15 @@ function googleTranslatePage(lang) {
     }
     if (container) container.classList.remove('active');
 
-    // Robust trigger using the URL hash technique
-    // This entirely avoids local file cookie restrictions and brittle DOM dispatching
     if (lang === 'en') {
-        window.location.hash = ''; // Clear translation
+        // CRITICAL: Delete Google Translate's own persistent cookie, otherwise it
+        // overrides the hash on reload and keeps the page in the old language.
+        const cookieValue = `googtrans=/en/en`;
+        const cookieDomain = location.hostname === 'localhost' ? 'localhost' : location.hostname;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${cookieDomain}`;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.${cookieDomain}`;
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
+        window.location.hash = '';
     } else {
         window.location.hash = `googtrans(en|${lang})`;
     }
