@@ -149,15 +149,23 @@ window.retranslatePage = function() {
         return;
     }
     
-    // Slight delay to allow DOM to settle
-    setTimeout(() => {
+    // Poll for the combo box to be ready
+    let attempts = 0;
+    const pollInterval = setInterval(() => {
+        attempts++;
         const combo = document.querySelector('.goog-te-combo');
         if (combo && combo.options.length > 1) {
+            clearInterval(pollInterval);
             combo.value = savedLang;
             combo.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+            
+            // Ensure body is visible after async re-translation
+            setTimeout(() => document.body.classList.add('translate-visible'), 1500);
         }
         
-        // Ensure body is visible after async re-translation
-        setTimeout(() => document.body.classList.add('translate-visible'), 100);
-    }, 300);
+        if (attempts > 50) { // Timeout after 5 seconds
+            clearInterval(pollInterval);
+            document.body.classList.add('translate-visible');
+        }
+    }, 100);
 };

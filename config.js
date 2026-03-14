@@ -5,7 +5,7 @@
 
 const APP_CONFIG = {
     // API endpoint for fetching dynamically generated content from MongoDB
-    API_BASE_URL: 'http://localhost:5001/api',
+    API_BASE_URL: 'https://traveller-ka4b.onrender.com/api',
 
     // The WhatsApp number used to receive reservation requests via the chat payload
     ADMIN_WHATSAPP_NUMBER: '8150074722',
